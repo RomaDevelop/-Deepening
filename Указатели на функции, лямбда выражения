@@ -1,0 +1,17 @@
+// вычисление интеграла методом трапеций
+// подинтегральная функция передается указателем
+float integral(float x1, float x2, float shag, float(*podintegral_func)(float)){
+	float s=0;
+	for(float x=x1; x<x2; x+=shag){
+		s = s + shag * 0.5 * ((podintegral_func(x)) + (podintegral_func(x + shag)));
+	}
+	return s;
+}
+
+// пример вызова функции
+float kvadrat(float x) { return x*x; }
+int main(){
+	cout<<integral(0,10,1,kvadrat)<<endl;   		// передача указателя на функцию определенную выше
+	cout<<integral(0,10,1,[](float x){return x*x;})<<endl;  // передача функции лямбда-выражением
+	return 0;
+}
