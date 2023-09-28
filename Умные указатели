@@ -29,14 +29,14 @@ int main() {
     cout<<"*ptr_u(_,1,2): "<<*ptr_u<<" "<<*ptr_u1<<" "<<*ptr_u2<<endl;
     cout<<"__________________________________________________________"<<endl<<endl;
     
-//массивы одномерные
+//массив одномерный
     int n=10;
     unique_ptr<int[]> arr { make_unique<int[]>(n) }; // не нашел способ сразу проинициализировать
     //for(auto i:arr) i=5;  // к сожалению нельзя
     for(int i=0; i<n; i++) { arr[i]=i*2; cout<<arr[i]<<" "; } 
     cout<<endl<<endl;
     
-//массивы двумерные    
+//массив двумерный    
     int rc=10, cc=5;
     typedef unique_ptr<int[]> row;
     auto arr2 { make_unique<row[]>(rc) };
