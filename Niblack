@@ -17,6 +17,7 @@ void print(T** source_dvumern, int image_width, int image_height)
 	cout<< endl;
 	}
 
+// преобразование буфера в двумерный масссив
 void Dvumern(uint8_t** target, uint8_t* source, int image_width, int image_height)
 	{
 	int i_s=0;
@@ -28,6 +29,7 @@ void Dvumern(uint8_t** target, uint8_t* source, int image_width, int image_heigh
 			}
 	}
 
+// дополнение изображения на область куда попадает окно
 void DopolnImage(int** target, uint8_t** source, int image_width, int image_height, int w_add, int h_add)
 	{
 	for(int i=0; i<h_add/2; i++)
@@ -49,6 +51,7 @@ void DopolnImage(int** target, uint8_t** source, int image_width, int image_heig
 			}
 	}
 
+// вычисление IntegralImage для последующего вычисления среднего и среднеквадратичного 
 void IntegralImage(int** target, int** source, int image_width, int image_height, bool kvadrat)
 	{
 	for(int y=0; y<image_height; y++)
@@ -79,6 +82,7 @@ void IntegralImage(int** target, int** source, int image_width, int image_height
 		}
 	}
 
+// вычисление пороговых значений каждого пикселя
 void Niblack_in(int** target, int** source, int** source2, int image_width, int image_height, int image_stride, int window_width, int window_height, double stdev_coeff)
 	{
 	int j_add=(window_width-1)/2;
@@ -95,11 +99,13 @@ void Niblack_in(int** target, int** source, int** source2, int image_width, int 
 			//cout<<                        " B=" << source2[i_s-i_add][j_s+j_add];
 			//cout<<                        " C=" << source2[i_s+i_add][j_s-j_add];
 			//cout<<                        " D=" << source2[i_s+i_add][j_s+j_add]<<endl;
+			// вычисление среднего
 			int sredn = source[i_s+i_add][j_s+j_add] -
 						source[i_s-i_add][j_s+j_add] -
 						source[i_s+i_add][j_s-j_add] +
 						source[i_s-i_add][j_s-j_add];
 
+			// вычисление среднеквадратичного
 			int sredn2 = source2[i_s+i_add][j_s+j_add] -
 						 source2[i_s-i_add][j_s+j_add] -
 						 source2[i_s+i_add][j_s-j_add] +
@@ -112,6 +118,7 @@ void Niblack_in(int** target, int** source, int** source2, int image_width, int 
 			int korrekt=255;
 			if(stdev_coeff>0) korrekt=-255;
 
+			// вычисление пороговых значений
 			target[i][j] = sredn + (stdev_coeff * sredn2) + korrekt;
 			//cout<< target[j][i] << "\t";
 			}
@@ -169,6 +176,7 @@ void Niblack(uint8_t* target, uint8_t* source, int image_width, int image_height
 	cout<<"The threshold value at each pixel:\n";
 	print(target_dvumern, image_width, image_height);
 
+	// пороговое отсечение
 	int i_s=0;
 	for(int i=0; i<image_height; i++)
 		{
@@ -212,13 +220,9 @@ int main()
 
 	// заполнение исходного изображения случайными данными (в середине темная область)
 	for(int i=0; i<coutn_pix; i++)
-
 		{
-
 		source[i]=std::rand()%255;
-
 		if(i > coutn_pix/3 && i < coutn_pix/1.4) source[i]=source[i]/20;
-
 		}
 
 	//for(int i=0; i<coutn_pix; i++) cout<< (int)source[i] << " ";
