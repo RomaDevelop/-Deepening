@@ -8,7 +8,7 @@ using namespace std;
 __________________________________________
 |наследование | у родителя   у наследника |
 |  public     | public     ->  public     |
-|			  | protected  ->  protected  |
+|             | protected  ->  protected  |
 |             | private    ->  private    |
 |_____________|___________________________|
 |  protected  | public     ->  protected  |
@@ -17,17 +17,14 @@ __________________________________________
 |_____________|___________________________|
 |  private    | public     ->  private    |
 |             | private    ->  private    |
-|			  | protected  ->  private    |
+|             | protected  ->  private    |
 |_____________|___________________________|
 */
 
 
 // Множественное наследование
-// https://metanit.com/cpp/tutorial/5.24.php
-// пример class Smartphone : public Phone, public Camera
-// по-моему неправильно Smartphone может наследовать Phone, а Camera должна быть внутри Smartphone
 
-// наследование 2 -> 1
+// наследование 2 (А и В) -> 1 (С)
 class A{
 public:
 	string dataA;
@@ -53,7 +50,7 @@ public:
 	C(){dataC="dataC"; cout<<"dataC created"<<endl;}
 	~C(){cout<<"dataC destoyed"<<endl;}
 
-	// методы могут быть одинаковые. Чтобы вызвать нужный можно использовать ClassEkzemplar.ClassName::Metod()
+	// методы могут быть перегружены. Чтобы вызвать конкретный нужно указывать конкретный ClassEkzemplar.ClassName::Metod()
 	// по умолчанию вызывается собственный метод, если он есть
 	// если собственный не определён - выдается ошибка при компиляции
 	// нужно вызывать конкретный, использовать ClassEkzemplar.ClassName::Metod()
@@ -62,7 +59,7 @@ public:
 };
 
 
-// наследование 1(А) -> 2 -> 1
+// наследование 1(А) -> 2(B1 и B2) -> 1 (С1)
 // проблема!!! конструкторы и деструкторы А вызовутся 2 раза!!!
 // решение - классы должны наследоваться как virtual!!!
 
