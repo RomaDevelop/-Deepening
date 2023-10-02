@@ -17,11 +17,11 @@ public:
 	matrix(T *data_, int ColCount_, int RowCount_): data(data_), ColCount(ColCount_), RowCount(RowCount_) {}
 	void set(T *data_, int ColCount_, int RowCount_) { data=data_; ColCount=ColCount_; RowCount=RowCount_; }
 
-	T& m(int col, int row) 				{ return data[col+row*ColCount]; }
+	T& m(int col, int row) 			{ return data[col+row*ColCount]; }
 	const T& m(int col, int row) const 	{ return data[col+row*ColCount]; }
 
-	T* operator[](int row) 				{ return data+row*ColCount; }
-	const T& operator[](int row) const 	{ return data+row*ColCount; }
+	T* operator[](int row) 			{ return data+row*ColCount; }
+	const T* operator[](int row) const 	{ return data+row*ColCount; }
 
 	void print() const
 		{
@@ -39,8 +39,6 @@ public:
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-
-
 	const int n=30;
 	int arr[n];
 	int cols=10, rows=3;
@@ -66,6 +64,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	M[0][3]=111111;
 	M[1][4]=222222;
 	M[2][5]=333333;
+	int a=M[2][5];
+	cout<<endl;
 
 	M.print();
 
